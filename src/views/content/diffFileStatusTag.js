@@ -1,4 +1,4 @@
-import { getFileStatus } from "../utils/utils";
+import { getFileStatus } from "../../utils/utils";
 
 const DiffFileStatusTag = ({ checksumBefore, checksumAfter }) => {
   const status = getFileStatus(checksumBefore, checksumAfter);

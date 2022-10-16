@@ -1,12 +1,13 @@
 body {
   background: #f3f5f7;
+  margin: 0px;
 }
 
 #diff-viewer,
 #review-page {
   max-width: 1400px;
   margin: auto;
-  padding: 48px;
+  padding: 0px;
 }
 
 .App {

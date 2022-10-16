@@ -1,5 +1,5 @@
-import DiffFileBody from "../components/diffFileBody";
-import DiffFileHeader from "../components/diffFileHeader";
+import DiffFileBody from "./diffFileBody";
+import DiffFileHeader from "./diffFileHeader";
 
 // UI element for a diff
 // Each block represents a single file

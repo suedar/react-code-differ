@@ -1,4 +1,4 @@
-import { getLineTypeClass, LINE_TYPES } from "../utils/utils";
+import { getLineTypeClass, LINE_TYPES } from "../../utils/utils";
 
 const getLinePrefix = (type) => {
   switch (type) {

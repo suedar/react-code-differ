@@ -1,4 +1,4 @@
-import DiffFileBlock from "../modules/DiffFileBlock";
+import DiffFileBlock from "./content/diffFileBlock";
 
 const ReviewPage = ({ json }) => {
   return (
