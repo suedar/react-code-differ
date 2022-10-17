@@ -17,25 +17,31 @@ const parseDiffJson = (diff) => {
 };
 
 // Get diff file from /public
-const getDiff = async (cb) => {
+const getDiff = async () => {
   const fileText = await fetch("/diffText")
     .then((response) => response.text())
     .then((data) => {
       return data;
     });
-  cb(fileText ?? "");
+    
+  return fileText ?? "";
 };
 
 export default function App() {
-  const [diffText, setDiffText] = useState("");
+  const [diffJson, setDiffJson] = useState([]);
+
+  const init = async () => {
+    const res = await getDiff();
+    setDiffJson(parseDiffJson(res))
+  }
 
   useEffect(() => {
-    getDiff(setDiffText);
+    init();
   }, []);
 
   return (
     <div className="App">
-      <ReviewPage json={parseDiffJson(diffText)} />
+      <ReviewPage json={diffJson} />
     </div>
   );
 }
