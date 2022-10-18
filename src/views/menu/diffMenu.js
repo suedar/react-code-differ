@@ -70,11 +70,6 @@ const DiffMenu = ({json}) => {
         return list;
     }
 
-    const renderContent = () => {
-
-    }
-
-
     const init = () => {
         let nodes = [];
         for (let i in json) {
@@ -93,14 +88,48 @@ const DiffMenu = ({json}) => {
             }
         }
         const res = sortList(nodes);
+        return res;
     }
 
-    init();
+    const renderChildren = (list) => {
+        let current = ''
+        for (let i in list) {
+            if (list[i].children) {
+                const node = <div className='diff-menu-list-item'>
+                    <div className='diff-menu-list-item-name'>
+                        {list[i].name}
+                    </div>
+                    {renderChildren(list[i].children)}
+                </div>;
+
+                current += node
+            }
+            else {
+                current += <div className='diff-menu-list-item'>
+                    <div className='diff-menu-list-item-name'>
+                        {list[i].name}
+                    </div>
+                </div>
+            }
+        }
+        console.log(current, 'current')
+        return current;
+    }
+
+    
+    const renderContent = () => {
+        const content = init();
+        let res = '';
+        // renderChildren(res, content);
+        console.log(res, renderChildren(content), 'res');
+        return renderChildren(content);
+    }
+
 
 
     return (
         <div id="diff-menu">
-
+            {renderContent()}
         </div>
     );
 };
