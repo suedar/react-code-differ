@@ -4,14 +4,13 @@ import DiffMenu from './menu/diffMenu';
 import './index.scss';
 
 const ReviewPage = ({ json }) => {
-  console.log(json, 'json')
   return (
-    <div id="review-page">
+    <div className="review-page">
       {/* Diff details */}
       {/* File List, etc.. */}
       {/* Render diff file blocks */}
       <DiffMenu json={json}></DiffMenu>  
-      <div>
+      <div className={'review-page-content'}>
         {json.map((blocks, idx) => (
           <DiffFileBlock {...blocks} />
         ))}

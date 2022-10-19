@@ -1,7 +1,10 @@
 import { getFileStatus } from '../../utils/utils';
 import './diff-menu.scss';
+import { useEffect, useState } from "react";
 
 const DiffMenu = ({json}) => {
+
+    const [currentList, setCurrentList] = useState([]);
 
     const getNodeTree = (nodes, list, type) => {
         let currentNode = nodes;
@@ -92,25 +95,51 @@ const DiffMenu = ({json}) => {
         return res;
     }
 
-    const renderChildren = (list) => {
-        return list.map(item => {
+    const toggleThis = (row, indexList) => {
+        // const currentList = currentList
+        let head = currentList;
+        let temp = head;
+        for (let i = 0; i < indexList.length - 1; i++) {
+            console.log(indexList[i], temp[indexList[i]].children)
+            temp = temp[indexList[i]].children;
+        }
+        console.log(temp, indexList[indexList.length - 1], indexList, 'indexList')
+        temp[indexList[indexList.length - 1]].clicked = !row.clicked;
+        console.log(head, 'test')
+        setCurrentList([...head])
+        // row.clicked = !row.clicked;
+
+    }
+
+    const renderChildren = (list, indexList) => {
+        return list.map((item, index) => {
             if (item.children) {
-                return <div className='diff-menu-list-item'>
-                    <div className={'diff-menu-list-item-space diff-menu-list-item-space__clicked'}>
+                return <div className='diff-menu-list-item'
+                    key={item.name}
+                >
+                    <div className={{
+                        'diff-menu-list-item-space': true,
+                        'diff-menu-list-item-space__clicked': item.clicked,
+                    }}
+                         onClick={() => toggleThis(item, [...indexList, index])}
+                    >
                         <img src="https://antd-scss.cdn.bcebos.com/code-diff/%E7%AE%AD%E5%A4%B4%20%E4%B8%8B.svg" alt="箭头"/>
                     </div>
                     <div className={'diff-menu-list-item-container'}>
-                        <div className='diff-menu-list-item-name'>
+                        <div className='diff-menu-list-item-name' onClick={() => toggleThis(item, [...indexList, index])}>
                             <span><img src="https://antd-scss.cdn.bcebos.com/code-diff/%E6%96%87%E4%BB%B6%E5%A4%B9.svg" alt="目录"/></span>
                             <span>{ item.name }</span>
                         </div>
-                        <div className='diff-menu-list-item-children'>
-                            { renderChildren(item.children) }
+                        <div className={{
+                            'diff-menu-list-item-children': true,
+                            'diff-menu-list-item-children-hidden': item.clicked,
+                        }}>
+                            { renderChildren(item.children, [...indexList, index]) }
                         </div>
                     </div>
                 </div>;
             }
-            return <div className='diff-menu-list-item'>
+            return <div className='diff-menu-list-item' key={item.name}>
                 <div className='diff-menu-list-item-name diff-menu-list-item-file'>
                     <span><img src="https://antd-scss.cdn.bcebos.com/code-diff/file-text.png" alt="文件"/></span>
                     <span>{item.name}</span>
@@ -119,18 +148,21 @@ const DiffMenu = ({json}) => {
         })
     }
 
-    
-    const renderContent = () => {
+    useEffect(() => {
         const content = init();
-        let res = '';
-        // renderChildren(res, content);
-        console.log(res, renderChildren(content), 'res');
-        return renderChildren(content);
-    }
+        console.log(content, 'test')
+        setCurrentList(content);
+    }, [json])
+    
+    // const renderContent = () => {
+    //     // const content = init();
+    //     // setCurrentList(content);
+    //     return renderChildren(currentList);
+    // }
 
     return (
-        <div id="diff-menu">
-            {renderContent()}
+        <div className="diff-menu">
+            {renderChildren(currentList, [])}
         </div>
     );
 };

@@ -14,7 +14,7 @@ const DiffFileHeader = ({
         {/* Icon - TODO add icon component */}
         <svg
           aria-hidden="true"
-          class="d2h-icon"
+          className="d2h-icon"
           height="16"
           version="1.1"
           viewBox="0 0 12 16"

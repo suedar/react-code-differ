@@ -5,8 +5,9 @@ img {
   vertical-align: middle;
 }
 
-#diff-menu {
+.diff-menu {
   margin-right: 30px;
+  margin: 8px 30px 0px 8px;
 }
 
 .diff-menu-list-item {
@@ -23,6 +24,13 @@ img {
     &__clicked {
       transform: rotate(-90deg);
       transform-origin: 8px 12px;
+    }
+  }
+
+  &-children {
+
+    &-hidden {
+      display: none;
     }
   }
 
