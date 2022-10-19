@@ -1,4 +1,5 @@
 import { getFileStatus } from '../../utils/utils';
+import './diff-menu.scss';
 
 const DiffMenu = ({json}) => {
 
@@ -92,28 +93,30 @@ const DiffMenu = ({json}) => {
     }
 
     const renderChildren = (list) => {
-        let current = ''
-        for (let i in list) {
-            if (list[i].children) {
-                const node = <div className='diff-menu-list-item'>
-                    <div className='diff-menu-list-item-name'>
-                        {list[i].name}
+        return list.map(item => {
+            if (item.children) {
+                return <div className='diff-menu-list-item'>
+                    <div className={'diff-menu-list-item-space diff-menu-list-item-space__clicked'}>
+                        <img src="https://antd-scss.cdn.bcebos.com/code-diff/%E7%AE%AD%E5%A4%B4%20%E4%B8%8B.svg" alt="箭头"/>
                     </div>
-                    {renderChildren(list[i].children)}
+                    <div className={'diff-menu-list-item-container'}>
+                        <div className='diff-menu-list-item-name'>
+                            <span><img src="https://antd-scss.cdn.bcebos.com/code-diff/%E6%96%87%E4%BB%B6%E5%A4%B9.svg" alt="目录"/></span>
+                            <span>{ item.name }</span>
+                        </div>
+                        <div className='diff-menu-list-item-children'>
+                            { renderChildren(item.children) }
+                        </div>
+                    </div>
                 </div>;
-
-                current += node
             }
-            else {
-                current += <div className='diff-menu-list-item'>
-                    <div className='diff-menu-list-item-name'>
-                        {list[i].name}
-                    </div>
+            return <div className='diff-menu-list-item'>
+                <div className='diff-menu-list-item-name diff-menu-list-item-file'>
+                    <span><img src="https://antd-scss.cdn.bcebos.com/code-diff/file-text.png" alt="文件"/></span>
+                    <span>{item.name}</span>
                 </div>
-            }
-        }
-        console.log(current, 'current')
-        return current;
+            </div>
+        })
     }
 
     
@@ -124,8 +127,6 @@ const DiffMenu = ({json}) => {
         console.log(res, renderChildren(content), 'res');
         return renderChildren(content);
     }
-
-
 
     return (
         <div id="diff-menu">

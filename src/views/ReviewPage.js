@@ -1,6 +1,8 @@
 import DiffFileBlock from "./content/diffFileBlock";
 import DiffMenu from './menu/diffMenu';
 
+import './index.scss';
+
 const ReviewPage = ({ json }) => {
   console.log(json, 'json')
   return (

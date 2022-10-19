@@ -1,0 +1,52 @@
+img {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+#diff-menu {
+  margin-right: 30px;
+}
+
+.diff-menu-list-item {
+  display: flex;
+
+  &-space {
+    width: 15px;
+    height: 15px;
+    content: '';
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+
+    &__clicked {
+      transform: rotate(-90deg);
+      transform-origin: 8px 12px;
+    }
+  }
+
+  &-name {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(208,215,222,0.48);
+    }
+  }
+
+  &-file {
+    position: relative;
+    &:before {
+      position: absolute;
+      top: 4px;
+      left: -19px;
+      background-image: url("https://antd-scss.cdn.bcebos.com/code-diff/%E7%AB%96%E7%BA%BF.svg");
+      content: '';
+      width: 15px;
+      height: 15px;
+      background-size: 15px;
+    }
+  }
+}
