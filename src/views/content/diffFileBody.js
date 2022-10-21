@@ -10,7 +10,7 @@ const Column = ({ lines }) => {
             {lines?.length
               ? lines.map((line, _idx) => {
                   return (
-                    <tr>
+                    <tr key={_idx}>
                       <DiffFileLine {...line.leftSide} />
                       <DiffFileLine {...line.rightSide} />
                     </tr>

@@ -1,4 +1,5 @@
 import DiffFileStatus from "./diffFileStatusTag";
+import { transferFilePath } from '../../utils/utils';
 
 const DiffFileHeader = ({
   fileHtmlId,
@@ -9,7 +10,7 @@ const DiffFileHeader = ({
   language
 }) => {
   return (
-    <div className="d2h-file-header">
+    <div className="d2h-file-header" id={transferFilePath(filePath)}>
       <span className="d2h-file-name-wrapper">
         {/* Icon - TODO add icon component */}
         <svg

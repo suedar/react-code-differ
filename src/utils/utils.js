@@ -33,3 +33,7 @@ export const getLineTypeClass = (type) => {
       return;
   }
 };
+
+export const transferFilePath = (filePath) => {
+  return filePath.replace(/\//ig, '-');
+}

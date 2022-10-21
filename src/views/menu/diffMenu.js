@@ -1,8 +1,15 @@
-import { getFileStatus } from '../../utils/utils';
-import './diff-menu.scss';
 import { useEffect, useState } from "react";
 
+import { getFileStatus, transferFilePath } from '../../utils/utils';
+import './diff-menu.scss';
+
 const DiffMenu = ({json}) => {
+
+    const diffObj = {
+        added: 'https://antd-scss.cdn.bcebos.com/code-diff/round_add%20(1).svg',
+        deleted: 'https://antd-scss.cdn.bcebos.com/code-diff/reduce_b.svg',
+        changed: 'https://antd-scss.cdn.bcebos.com/code-diff/round_add%20(2).svg',
+    }
 
     const [currentList, setCurrentList] = useState([]);
 
@@ -34,6 +41,7 @@ const DiffMenu = ({json}) => {
         currentNode.push({
             name: list[list.length - 1],
             type,
+            fullPath: list.join('-')
         })
     };
 
@@ -95,20 +103,22 @@ const DiffMenu = ({json}) => {
         return res;
     }
 
+    const clickFile = (id, type) => {
+        if (type === 'deleted') {
+            return;
+        }
+        const queryDom = document.getElementById(id);
+        queryDom.scrollIntoView({behavior: "smooth"})
+    }
+
     const toggleThis = (row, indexList) => {
-        // const currentList = currentList
         let head = currentList;
         let temp = head;
         for (let i = 0; i < indexList.length - 1; i++) {
-            console.log(indexList[i], temp[indexList[i]].children)
             temp = temp[indexList[i]].children;
         }
-        console.log(temp, indexList[indexList.length - 1], indexList, 'indexList')
         temp[indexList[indexList.length - 1]].clicked = !row.clicked;
-        console.log(head, 'test')
         setCurrentList([...head])
-        // row.clicked = !row.clicked;
-
     }
 
     const renderChildren = (list, indexList) => {
@@ -117,32 +127,36 @@ const DiffMenu = ({json}) => {
                 return <div className='diff-menu-list-item'
                     key={item.name}
                 >
-                    <div className={{
-                        'diff-menu-list-item-space': true,
-                        'diff-menu-list-item-space__clicked': item.clicked,
-                    }}
+                    <div className={
+                        item.clicked
+                        ? 'diff-menu-list-item-space diff-menu-list-item-space__clicked'
+                        : 'diff-menu-list-item-space'
+                    }
                          onClick={() => toggleThis(item, [...indexList, index])}
                     >
                         <img src="https://antd-scss.cdn.bcebos.com/code-diff/%E7%AE%AD%E5%A4%B4%20%E4%B8%8B.svg" alt="箭头"/>
                     </div>
                     <div className={'diff-menu-list-item-container'}>
-                        <div className='diff-menu-list-item-name' onClick={() => toggleThis(item, [...indexList, index])}>
+                        <div className='diff-menu-list-item-name diff-menu-list-item-hover' onClick={() => toggleThis(item, [...indexList, index])}>
                             <span><img src="https://antd-scss.cdn.bcebos.com/code-diff/%E6%96%87%E4%BB%B6%E5%A4%B9.svg" alt="目录"/></span>
                             <span>{ item.name }</span>
                         </div>
-                        <div className={{
-                            'diff-menu-list-item-children': true,
-                            'diff-menu-list-item-children-hidden': item.clicked,
-                        }}>
+                        <div className={
+                            item.clicked
+                            ? 'diff-menu-list-item-children diff-menu-list-item-children-hidden'
+                            : 'diff-menu-list-item-children'}>
                             { renderChildren(item.children, [...indexList, index]) }
                         </div>
                     </div>
                 </div>;
             }
-            return <div className='diff-menu-list-item' key={item.name}>
-                <div className='diff-menu-list-item-name diff-menu-list-item-file'>
+            return <div className='diff-menu-list-item diff-menu-list-item-file' key={item.name} onClick={() => clickFile(item.fullPath, item.type)}>
+                <div className='diff-menu-list-item-name diff-menu-list-item-file-left'>
                     <span><img src="https://antd-scss.cdn.bcebos.com/code-diff/file-text.png" alt="文件"/></span>
-                    <span>{item.name}</span>
+                    <span>{item.type === 'deleted' ? <del>{item.name}</del> : item.name}</span>
+                </div>
+                <div className="diff-menu-list-item-icon">
+                    <img src={diffObj[item.type]} alt="图标"/>
                 </div>
             </div>
         })
@@ -150,7 +164,6 @@ const DiffMenu = ({json}) => {
 
     useEffect(() => {
         const content = init();
-        console.log(content, 'test')
         setCurrentList(content);
     }, [json])
     

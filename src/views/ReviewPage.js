@@ -12,7 +12,7 @@ const ReviewPage = ({ json }) => {
       <DiffMenu json={json}></DiffMenu>  
       <div className={'review-page-content'}>
         {json.map((blocks, idx) => (
-          <DiffFileBlock {...blocks} />
+          <DiffFileBlock key={idx} {...blocks} />
         ))}
       </div>
     </div>

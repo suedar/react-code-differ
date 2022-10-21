@@ -7,11 +7,32 @@ img {
 
 .diff-menu {
   margin-right: 30px;
-  margin: 8px 30px 0px 8px;
+  margin: 8px 15px 0px 8px;
+  font-size: 15px;
+
+  -moz-user-select: none; /*火狐*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -ms-user-select: none; /*IE10*/
+  -khtml-user-select: none; /*早期浏览器*/
+  user-select: none;
 }
 
 .diff-menu-list-item {
   display: flex;
+  width: 100%;
+  //align-items: center;
+
+  &-container {
+    width: 100%;
+  }
+
+  &-icon {
+
+    img {
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+  }
 
   &-space {
     width: 15px;
@@ -20,6 +41,7 @@ img {
     display: inline-block;
     margin-right: 5px;
     cursor: pointer;
+    transition: all 33.333ms linear;
 
     &__clicked {
       transform: rotate(-90deg);
@@ -38,6 +60,10 @@ img {
     display: flex;
     align-items: center;
     cursor: pointer;
+    width: 100%;
+  }
+
+  &-hover, &-file {
 
     &:hover {
       background: rgba(208,215,222,0.48);
@@ -45,16 +71,24 @@ img {
   }
 
   &-file {
-    position: relative;
-    &:before {
-      position: absolute;
-      top: 4px;
-      left: -19px;
-      background-image: url("https://antd-scss.cdn.bcebos.com/code-diff/%E7%AB%96%E7%BA%BF.svg");
-      content: '';
-      width: 15px;
-      height: 15px;
-      background-size: 15px;
+
+    &-left {
+      position: relative;
+
+      &:before {
+        position: absolute;
+        top: 4px;
+        left: -19px;
+        background-image: url("https://antd-scss.cdn.bcebos.com/code-diff/%E7%AB%96%E7%BA%BF.svg");
+        content: '';
+        width: 15px;
+        height: 15px;
+        background-size: 15px;
+      }
+
+      img {
+        margin-bottom: 2px;
+      }
     }
   }
 }

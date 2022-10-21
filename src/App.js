@@ -27,7 +27,8 @@ const getDiff = async () => {
   return fileText ?? "";
 };
 
-export default function App() {
+const App = function () {
+
   const [diffJson, setDiffJson] = useState([]);
 
   const init = async () => {
@@ -40,8 +41,9 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
-      <ReviewPage json={diffJson} />
-    </div>
+      <div className="App">
+        <ReviewPage json={diffJson} />
+      </div>
   );
 }
+export default App;
