@@ -16,25 +16,49 @@ const parseDiffJson = (diff) => {
   return Diff2Html.parse(diff, diffViewerConfig);
 };
 
-// Get diff file from /public
-const getDiff = async () => {
-  const fileText = await fetch("/diffText")
-    .then((response) => response.text())
-    .then((data) => {
-      return data;
-    });
-    
-  return fileText ?? "";
-};
 
-const Index = function () {
+/**
+ *
+ * @param type url
+ * @param path
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const Index = function ({
+    type, path
+}) {
 
   const [diffJson, setDiffJson] = useState([]);
 
   const init = async () => {
-    const res = await getDiff();
-    setDiffJson(parseDiffJson(res))
+    // const res = await getDiff();
+    setDiffJson(parseDiffJson(rawText))
   }
+
+  /**
+   * 允许三种数据传输方式
+   * 本地文件
+   * github url
+   * gitlab url 暂未支持
+   * @returns {Promise<string|string>}
+   */
+  const getDiffTextFromUrl = async (url) => {
+    let requestUrl = url
+    if (type === "github") {
+      const githubReg = /.*\/pull\/\d+/g
+      if (githubReg.test(url)) {
+        requestUrl = githubReg.match(url)?.[0]
+      }
+    }
+    const fileText = await fetch(url)
+        .then((response) => response.text(requestUrl))
+        .then((data) => {
+          return data;
+        });
+
+    return fileText ?? "";
+  };
+
 
   useEffect(() => {
     init();
