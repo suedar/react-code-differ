@@ -1,5 +1,5 @@
 import DiffFileLine from "./diffFileLine";
-import { LINE_TYPES } from "../../utils/utils";
+import { LINE_TYPES } from "../utils/utils";
 
 const Column = ({ lines }) => {
   return (

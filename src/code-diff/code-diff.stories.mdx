@@ -1,0 +1,24 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import CodeDiff from "./";
+import { useState } from "react";
+
+<Meta title="code diff" component={CodeDiff} />
+
+```tsx
+import { CodeDiff } from "code-diff";
+
+export const MyComponent = (args) => {
+  return (
+    <CodeDiff />
+  );
+};
+```
+
+export const Basic = (args) => <CodeDiff {...args} />;
+
+<Canvas>
+  <Story name="code-diff">
+    <Basic />
+    <span>hello<span/>
+  </Story>
+</Canvas>

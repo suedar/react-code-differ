@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import * as Diff2Html from "diff2html";
-import ReviewPage from "./views/ReviewPage";
+import ReviewPage from "./review-page";
 
-import "./styles.css";
+import "./index.css";
 
 // Config options for the view
 const diffViewerConfig = {
@@ -27,7 +27,7 @@ const getDiff = async () => {
   return fileText ?? "";
 };
 
-const App = function () {
+const Index = function () {
 
   const [diffJson, setDiffJson] = useState([]);
 
@@ -46,4 +46,5 @@ const App = function () {
       </div>
   );
 }
-export default App;
+
+export default Index;

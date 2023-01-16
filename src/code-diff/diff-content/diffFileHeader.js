@@ -1,5 +1,5 @@
 import DiffFileStatus from "./diffFileStatusTag";
-import { transferFilePath } from '../../utils/utils';
+import { transferFilePath } from '../utils/utils';
 
 const DiffFileHeader = ({
   fileHtmlId,

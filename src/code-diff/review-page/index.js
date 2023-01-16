@@ -1,16 +1,16 @@
-import DiffFileBlock from "./content/diffFileBlock";
-import DiffMenu from './menu/diffMenu';
+import DiffFileBlock from "../diff-content/diffFileBlock";
+import DiffMenu from '../diff-menu/diffMenu';
 
 import './index.scss';
 
-const ReviewPage = ({ json }) => {
+const Index = ({ json }) => {
   return (
     <div className="review-page">
       {/* Diff details */}
       {/* File List, etc.. */}
       {/* Render diff file blocks */}
       <DiffMenu json={json}></DiffMenu>  
-      <div className={'review-page-content'}>
+      <div className={'review-page-diff-content'}>
         {json.map((blocks, idx) => (
           <DiffFileBlock key={idx} {...blocks} />
         ))}
@@ -19,4 +19,4 @@ const ReviewPage = ({ json }) => {
   );
 };
 
-export default ReviewPage;
+export default Index;

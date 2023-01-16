@@ -3,37 +3,93 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main": "src/index.js",
+  "main": "src/code-diff/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
+  "files": [
+    "es"
+  ],
   "dependencies": {
-    "@babel/cli": "^7.19.3",
-    "@babel/core": "^7.19.6",
-    "@babel/preset-env": "^7.19.4",
-    "@babel/preset-react": "^7.18.6",
-    "diff2html": "3.4.8",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-dom-server": "0.0.5",
-    "react-scripts": "4.0.1",
-    "sass-loader": "^13.1.0"
+    "classnames": "^2.3.1",
+    "diff2html": "^3.4.8",
+    "lodash-es": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.4.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.8.2",
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@babel/runtime": "7.13.8",
-    "react-refresh": "^0.14.0",
-    "sass": "^1.55.0",
-    "typescript": "4.1.3"
+    "@commitlint/config-conventional": "^17.1.0",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "@rollup/plugin-strip": "^2.1.0",
+    "@rollup/plugin-typescript": "^8.5.0",
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/builder-webpack5": "^6.5.10",
+    "@storybook/manager-webpack5": "^6.5.10",
+    "@storybook/node-logger": "^6.5.10",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.10",
+    "@storybook/testing-library": "^0.0.13",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/lodash-es": "^4.17.6",
+    "@types/node": "^16.11.58",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "chromatic": "^6.14.0",
+    "commitlint": "^17.1.2",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "^8.23.0",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "prop-types": "^15.8.1",
+    "rollup-plugin-node-externals": "^5.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "sass": "^1.54.9",
+    "stylelint": "^14.11.0",
+    "webpack": "^5.74.0"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "start:webpack": "react-scripts start",
+    "build:webpack": "react-scripts build",
+    "dev": "node scripts/start.js",
+    "build": "node scripts/build.js",
     "test": "react-app-rewired test --env=jsdom",
-    "eject": "react-scripts eject",
     "start": "react-app-rewired start",
-    "transpile": "babel src -d dist --copy-files"
+    "transpile": "babel src -d dist --copy-files",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic --project-token=26019f3a4a43"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "code-diff@1.0.0"
 }

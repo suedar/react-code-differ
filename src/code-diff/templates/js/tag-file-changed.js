@@ -1,5 +1,6 @@
 import * as ReactDOMServer from "react-dom/server";
 import Mustache from "mustache";
+import { createRoot } from 'react-dom/client'
 
 export default function render(title) {
   const template = ReactDOMServer.renderToString(
@@ -8,5 +9,5 @@ export default function render(title) {
     </button>
   );
 
-  return Mustache.render(template, { title: title });
+  return {}
 }
