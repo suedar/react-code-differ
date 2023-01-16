@@ -47,7 +47,6 @@
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "babel-plugin-named-exports-order": "^0.0.2",
-    "chromatic": "^6.14.0",
     "commitlint": "^17.1.2",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.23.0",
@@ -67,11 +66,7 @@
   "scripts": {
     "start:webpack": "react-scripts start",
     "build:webpack": "react-scripts build",
-    "dev": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "react-app-rewired test --env=jsdom",
-    "start": "react-app-rewired start",
-    "transpile": "babel src -d dist --copy-files",
+    "start": "react-scripts start",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=26019f3a4a43"
