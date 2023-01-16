@@ -13,6 +13,12 @@ body {
 .App {
   font-family: sans-serif;
   text-align: center;
+
+
+  .review-page-diff-content {
+    max-height: 100vh;
+    overflow-y: scroll;
+  }
 }
 
 /* Diff Table */

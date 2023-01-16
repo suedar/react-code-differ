@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Diff2Html from "diff2html";
 import ReviewPage from "./review-page";
 
-import "./index.css";
+import "./index.scss";
 
 // Config options for the view
 const diffViewerConfig = {
