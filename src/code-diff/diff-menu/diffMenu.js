@@ -77,30 +77,9 @@ const DiffMenu = ({json}) => {
         }
         listWithChildren.sort(sortListByName);
         normalList.sort(sortListByName);
-        list = [...listWithChildren, ...normalList];
+        list = [...normalList, ...listWithChildren];
 
         return list;
-    }
-
-    const init = () => {
-        let nodes = [];
-        for (let i in json) {
-            const row = json[i];
-            const type = getFileStatus(row.checksumBefore, row.checksumAfter);
-            if (type === 'added') {
-                getNodeTree(nodes, row.newName.split('/'), 'added');
-                getNodeTree(nodes, row.oldName.split('/'), 'deleted');
-            }
-            else if (type === 'deleted') {
-                getNodeTree(nodes, row.oldName.split('/'), 'deleted');
-            }
-            else if (type === 'changed') {
-                getNodeTree(nodes, row.newName.split('/'), 'changed');
-
-            }
-        }
-        const res = sortList(nodes);
-        return res;
     }
 
     const clickFile = (id, type) => {
@@ -121,36 +100,40 @@ const DiffMenu = ({json}) => {
         setCurrentList([...head])
     }
 
-    const renderChildren = (list, indexList) => {
+    const renderChildren = (list, indexList, position) => {
         return list.map((item, index) => {
+            // 如果存在子节点
             if (item.children) {
                 return <div className='diff-menu-list-item'
                     key={item.name}
                 >
                     <div className={
                         item.clicked
-                        ? 'diff-diff-menu-list-item-space diff-diff-menu-list-item-space__clicked'
-                        : 'diff-diff-menu-list-item-space'
+                          ? 'diff-menu-list-item-space diff-diff-menu-list-item-space__clicked'
+                          : 'diff-menu-list-item-space'
                     }
                          onClick={() => toggleThis(item, [...indexList, index])}
                     >
                         <img src="https://antd-scss.cdn.bcebos.com/code-diff/%E7%AE%AD%E5%A4%B4%20%E4%B8%8B.svg" alt="箭头"/>
                     </div>
-                    <div className={'diff-diff-menu-list-item-container'}>
-                        <div className='diff-menu-list-item-name diff-menu-list-item-hover' onClick={() => toggleThis(item, [...indexList, index])}>
+                    <div className={'diff-menu-list-item-container'}>
+                        <div className='diff-menu-list-item-name diff-menu-list-item-owner' onClick={() => toggleThis(item, [...indexList, index])}>
                             <span><img src="https://antd-scss.cdn.bcebos.com/code-diff/%E6%96%87%E4%BB%B6%E5%A4%B9.svg" alt="目录"/></span>
                             <span>{ item.name }</span>
                         </div>
                         <div className={
                             item.clicked
-                            ? 'diff-diff-menu-list-item-children diff-diff-menu-list-item-children-hidden'
-                            : 'diff-diff-menu-list-item-children'}>
+                              ? 'diff-diff-menu-list-item-children diff-menu-list-item-children-hidden'
+                              : 'diff-diff-menu-list-item-children'}>
                             { renderChildren(item.children, [...indexList, index]) }
                         </div>
                     </div>
                 </div>;
             }
+            // 如果不存在子节点
             return <div className='diff-menu-list-item diff-menu-list-item-file' key={item.name} onClick={() => clickFile(item.fullPath, item.type)}>
+                {/* 如果是最外层 */}
+                {position === 'first' && <div className={'diff-menu-list-item-space'}></div>}
                 <div className='diff-menu-list-item-name diff-menu-list-item-file-left'>
                     <span><img src="https://antd-scss.cdn.bcebos.com/code-diff/file-text.png" alt="文件"/></span>
                     <span>{item.type === 'deleted' ? <del>{item.name}</del> : item.name}</span>
@@ -162,21 +145,37 @@ const DiffMenu = ({json}) => {
         })
     }
 
+    const init = () => {
+        console.log(json, "json ========")
+        let nodes = [];
+        for (let i in json) {
+            const row = json[i];
+            const type = getFileStatus(row.checksumBefore, row.checksumAfter);
+            if (type === 'added') {
+                getNodeTree(nodes, row.newName.split('/'), 'added');
+                getNodeTree(nodes, row.oldName.split('/'), 'deleted');
+            }
+            else if (type === 'deleted') {
+                getNodeTree(nodes, row.oldName.split('/'), 'deleted');
+            }
+            else if (type === 'changed') {
+                getNodeTree(nodes, row.newName.split('/'), 'changed');
+
+            }
+        }
+        const res = sortList(nodes);
+        return res;
+    }
+
     useEffect(() => {
         const content = init();
         setCurrentList(content);
     // eslint-disable-next-line
     }, [json])
-    
-    // const renderContent = () => {
-    //     // const diff-content = init();
-    //     // setCurrentList(diff-content);
-    //     return renderChildren(currentList);
-    // }
 
     return (
         <div className="diff-menu">
-            {renderChildren(currentList, [])}
+            {renderChildren(currentList, [], 'first')}
         </div>
     );
 };

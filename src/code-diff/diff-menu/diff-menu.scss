@@ -8,7 +8,7 @@ img {
 .diff-menu {
   margin-right: 30px;
   margin: 8px 15px 0px 8px;
-  font-size: 15px;
+  font-size: 14px;
 
   -moz-user-select: none; /*火狐*/
   -webkit-user-select: none; /*webkit浏览器*/
@@ -42,6 +42,7 @@ img {
     margin-right: 5px;
     cursor: pointer;
     transition: all 33.333ms linear;
+    margin-top: 3px;
 
     &__clicked {
       transform: rotate(-90deg);
@@ -50,6 +51,7 @@ img {
   }
 
   &-children {
+    width: 100%;
 
     &-hidden {
       display: none;
@@ -63,14 +65,19 @@ img {
     width: 100%;
   }
 
-  &-hover, &-file {
+  &-owner, &-file {
 
     &:hover {
       background: rgba(208,215,222,0.48);
     }
   }
 
+  &-owner {
+    padding: 3px 0;
+  }
+
   &-file {
+    padding: 3px 0;
 
     &-left {
       position: relative;
