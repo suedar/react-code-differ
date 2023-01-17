@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { getFileStatus } from '../utils/utils';
 import './diff-menu.scss';
 
 const DiffMenu = ({json}) => {
+
 
     const diffObj = {
         added: 'https://antd-scss.cdn.bcebos.com/code-diff/round_add%20(1).svg',
@@ -12,6 +13,7 @@ const DiffMenu = ({json}) => {
     }
 
     const [currentList, setCurrentList] = useState([]);
+    const diffMenuRef = useRef();
 
     const getNodeTree = (nodes, list, type) => {
         let currentNode = nodes;
@@ -109,7 +111,7 @@ const DiffMenu = ({json}) => {
                 >
                     <div className={
                         item.clicked
-                          ? 'diff-menu-list-item-space diff-diff-menu-list-item-space__clicked'
+                          ? 'diff-menu-list-item-space diff-menu-list-item-space__clicked'
                           : 'diff-menu-list-item-space'
                     }
                          onClick={() => toggleThis(item, [...indexList, index])}
@@ -146,7 +148,6 @@ const DiffMenu = ({json}) => {
     }
 
     const init = () => {
-        console.log(json, "json ========")
         let nodes = [];
         for (let i in json) {
             const row = json[i];
@@ -170,11 +171,18 @@ const DiffMenu = ({json}) => {
     useEffect(() => {
         const content = init();
         setCurrentList(content);
+
+        // 确保目录不坍塌
+        setTimeout(() => {
+            document.getElementById('diff-menu').style.width = diffMenuRef.current?.clientWidth + 'px'
+            document.getElementById('diff-menu').style.minWidth = diffMenuRef.current?.clientWidth + 'px'
+        }, 0)
+
     // eslint-disable-next-line
     }, [json])
 
     return (
-        <div className="diff-menu">
+        <div id={"diff-menu"}  className="diff-menu" ref={diffMenuRef}>
             {renderChildren(currentList, [], 'first')}
         </div>
     );

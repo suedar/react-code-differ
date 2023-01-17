@@ -39,15 +39,13 @@ const Index = function ({
    */
   const getDiffTextFromUrl = async () => {
     let requestUrl = path
-    console.log(path, "getDiffTextFromUrl path")
+
     if (type === "github") {
       const githubReg = /.*\/pull\/\d+/g
       if (githubReg.test(path)) {
         requestUrl = path.match(githubReg)?.[0]
       }
     }
-
-    console.log(type, path, "path ======")
 
     if (!requestUrl) {
       throw new Error("输入不正确 请进行检查")
@@ -58,16 +56,21 @@ const Index = function ({
         'accept': "application/vnd.github.v3.diff"
       }
     })
-        .then((response) => response.text(requestUrl))
-        .then((data) => {
-          return data;
-        });
+      .then((response) => response.text(requestUrl))
+      .then((data) => {
+        return data;
+      });
 
     return fileText ?? "";
   };
 
   const init = async () => {
     const res = await getDiffTextFromUrl();
+
+    if (!res) {
+      return
+    }
+
     setDiffJson(parseDiffJson(res))
   }
 
@@ -77,7 +80,7 @@ const Index = function ({
 
   return (
       <div className="App">
-        <ReviewPage json={diffJson} />
+        <ReviewPage json={diffJson || []} />
       </div>
   );
 }
