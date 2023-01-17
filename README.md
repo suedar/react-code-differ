@@ -1,8 +1,8 @@
-# code-diff
+# react-code-differ
 
 本组件可用于代码差异的查看, 由于是 react 编写的，仅支持 react 版本
 
-**[组件文档地址](https://63c4ee8240b12d9fbe70f43c-nqsqfzkhff.chromatic.com/?path=/story/code-diff--code-diff)**
+**[组件文档地址](https://63c4ee8240b12d9fbe70f43c-gktrgzzujh.chromatic.com/?path=/story/code-diff--%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%BC%95%E5%85%A5)**
 
 先支持两种使用方式：
 1. 本地文件引入
@@ -11,13 +11,13 @@
 ## 安装
 
 ```
-npm i code-diff
+npm i react-code-differ
 ```
 
 ## 本地文件引入
 
 ```tsx
-import { CodeDiff } from "code-diff";
+import { CodeDiff } from "react-code-differ";
 import diffText from './diffText'
 
 export const MyComponent = (args) => {
@@ -33,7 +33,7 @@ export const MyComponent = (args) => {
 ## github 线上 diff 地址引入
 
 ```tsx
-import { CodeDiff } from "code-diff";
+import { CodeDiff } from "react-code-differ";
 
 export const MyComponent = (args) => {
   const path = "https://api.github.com/repos/rtfpessoa/diff2html/pulls/106"

@@ -1,14 +1,26 @@
 {
-  "name": "code-diff",
-  "version": "1.0.0",
-  "description": "",
-  "keywords": [],
+  "name": "react-code-differ",
+  "version": "1.0.1",
+  "author": {
+    "name": "suedar",
+    "email": "690372513@qq.com"
+  },
+  "description": "react 的代码差异查看组件，支持本地与 github 两种方法实现",
+  "keywords": [
+    "react",
+    "javascript",
+    "diff",
+    "code-diff",
+    "diff2html"
+  ],
+  "license": "MIT",
   "main": "src/code-diff/index.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",
   "files": [
     "es"
   ],
+  "homepage": "https://github.com/suedar/code-diff#readme",
   "dependencies": {
     "classnames": "^2.3.1",
     "diff2html": "^3.4.8",
