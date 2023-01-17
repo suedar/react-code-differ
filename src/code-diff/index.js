@@ -25,15 +25,10 @@ const parseDiffJson = (diff) => {
  * @constructor
  */
 const Index = function ({
-    type, path
+    type = 'local', path
 }) {
 
   const [diffJson, setDiffJson] = useState([]);
-
-  const init = async () => {
-    // const res = await getDiff();
-    setDiffJson(parseDiffJson(rawText))
-  }
 
   /**
    * 允许三种数据传输方式
@@ -42,15 +37,27 @@ const Index = function ({
    * gitlab url 暂未支持
    * @returns {Promise<string|string>}
    */
-  const getDiffTextFromUrl = async (url) => {
-    let requestUrl = url
+  const getDiffTextFromUrl = async () => {
+    let requestUrl = path
+    console.log(path, "getDiffTextFromUrl path")
     if (type === "github") {
       const githubReg = /.*\/pull\/\d+/g
-      if (githubReg.test(url)) {
-        requestUrl = githubReg.match(url)?.[0]
+      if (githubReg.test(path)) {
+        requestUrl = path.match(githubReg)?.[0]
       }
     }
-    const fileText = await fetch(url)
+
+    console.log(type, path, "path ======")
+
+    if (!requestUrl) {
+      throw new Error("输入不正确 请进行检查")
+    }
+
+    const fileText = await fetch(requestUrl, {
+      headers: {
+        'accept': "application/vnd.github.v3.diff"
+      }
+    })
         .then((response) => response.text(requestUrl))
         .then((data) => {
           return data;
@@ -59,6 +66,10 @@ const Index = function ({
     return fileText ?? "";
   };
 
+  const init = async () => {
+    const res = await getDiffTextFromUrl();
+    setDiffJson(parseDiffJson(res))
+  }
 
   useEffect(() => {
     init();

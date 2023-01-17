@@ -89,6 +89,10 @@ img {
       img {
         margin-bottom: 2px;
       }
+
+      span:nth-of-type(2) {
+        white-space: nowrap;
+      }
     }
   }
 }

@@ -1,23 +1,63 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import CodeDiff from "../";
 import { useState } from "react";
+import diffText from './diffText'
 
 <Meta title="code diff" component={CodeDiff} />
+
+# code-diff
+
+本组件可用于代码差异的查看, 由于是 react 编写的，仅支持 react 版本
+
+**[组件文档地址](https://63c4ee8240b12d9fbe70f43c-nqsqfzkhff.chromatic.com/?path=/story/code-diff--code-diff)**
+
+先支持两种使用方式： 
+1. 本地文件引入
+2. github 线上 diff 地址引入
+
+## 安装
+
+```
+npm i code-diff
+```
+
+## 本地文件引入
+
+```tsx
+import { CodeDiff } from "code-diff";
+import diffText from './diffText'
+
+export const MyComponent = (args) => {
+  return (
+    <CodeDiff type={"local"} path={diffText} />
+  );
+};
+```
+export const Basic = (args) => <CodeDiff {...args} />;
+
+<Canvas>
+  <Story name="本地文件引入">
+    <Basic type={"local"} path={diffText} />
+  </Story>
+</Canvas>
+
+
+
+## github 线上 diff 地址引入
 
 ```tsx
 import { CodeDiff } from "code-diff";
 
 export const MyComponent = (args) => {
+  const path = "https://api.github.com/repos/rtfpessoa/diff2html/pulls/106"
   return (
-    <CodeDiff />
+    <CodeDiff type={"github"} path={path} />
   );
 };
 ```
 
-export const Basic = (args) => <CodeDiff {...args} />;
-
 <Canvas>
-  <Story name="code-diff">
-    <Basic />
+  <Story name="github 线上 diff 地址引入">
+    <Basic type={"github"} path={"https://api.github.com/repos/rtfpessoa/diff2html/pulls/106"} />
   </Story>
 </Canvas>
